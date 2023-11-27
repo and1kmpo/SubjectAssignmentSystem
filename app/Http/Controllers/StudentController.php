@@ -33,8 +33,11 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->input();
-        $response = Student::create($inputs);
-        return $response;
+        $e = Student::create($inputs);
+        return response()->json(([
+            'data' => $e,
+            'message' => 'Student created successfully'
+        ]));
     }
 
     public function update(Request $request, $id)
