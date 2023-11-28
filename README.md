@@ -1,53 +1,48 @@
-# SubjectAssignmentSystem
+# Backend of the Subject Assignment System
 
-# Backend del Sistema de Asignación de Materias
+This is the backend for the Subject Assignment System. Provides an API to manage student information.
 
-Este es el backend para el Sistema de Asignación de Materias. Proporciona una API para gestionar la información de los estudiantes.
+## Used technology
 
-## Tecnologías Utilizadas
+- Laravel: The PHP framework used to build the backend.
+- MySQL: Database used to store student information.
 
-- Laravel: El framework de PHP utilizado para construir el backend.
-- MySQL: Base de datos utilizada para almacenar la información de los estudiantes.
+## Project Configuration
 
-## Configuración del Proyecto
+1. Clone this repository: `git clone https://github.com/and1kmpo/back-subject-assignment-system.git`
+2. Install the dependencies: `composer install`
+3. Configure the database in the `.env` file.
+4. Run the migrations and seeder: `php artisan migrate --seed`
 
-1. Clona este repositorio: `git clone https://github.com/and1kmpo/back-subject-assignment-system.git`
-2. Instala las dependencias: `composer install`
-3. Configura la base de datos en el archivo `.env`.
-4. Ejecuta las migraciones y seeder: `php artisan migrate --seed`
+## Main Features
 
-## Funcionalidades Principales
-
-- API para la gestión de estudiantes, profesores, asignatura, programas, carreras y relación entre estos recursos.
+- API for the management of students, teachers, subjects, programs, careers and the relationship between these resources.
 
 ## Endpoints API
-Recurso estudiantes:
-- `GET /api/students`: Obtiene la lista de estudiantes.
-- `GET /api/students/{id}`: Obtiene un estudiante específico.
-- `POST /api/students`: Agrega un nuevo estudiante.
-- `PUT /api/students/{id}`: Actualiza la información de un estudiante.
-- `DELETE /api/students/{id}`: Elimina un estudiante.
+Student resources:
+- `GET /api/students`: Gets the list of students.
+- `GET /api/students/{id}`: Gets a specific student.
+- `POST /api/students`: Add a new student.
+- `PUT /api/students/{id}`: Updates a student's information.
+- `DELETE /api/students/{id}`: Delete a student.
 
-Recurso profesores:
-- `GET /api/professors`: Obtiene la lista de profesor.
-- `GET /api/professors/{id}`: Obtiene un profesor en específico.
-- `POST /api/professors`: Agrega un nuevo profesor.
-- `PUT /api/professors/{id}`: Actualiza la información de un profesor.
-- `DELETE /api/professors/{id}`: Elimina un profesor.
+Teachers resource:
+- `GET /api/professors`: Gets the teacher list.
+- `GET /api/professors/{id}`: Gets a specific teacher.
+- `POST /api/professors`: Add a new teacher.
+- `PUT /api/professors/{id}`: Updates a teacher's information.
+- `DELETE /api/professors/{id}`: Delete a teacher.
 
-  Recurso asignaturas:
-- `GET /api/subjects`: Obtiene la lista de asignaturas.
-- `GET /api/subjects/{id}`: Obtiene una asignatura en específico.
-- `POST /api/subjects`: Agrega una nueva asignaturas.
-- `PUT /api/subjects/{id}`: Actualiza la información de una asignaturas.
-- `DELETE /api/subjects/{id}`: Elimina una asignaturas.
+  Subject resources:
+- `GET /api/subjects`: Gets the list of subjects.
+- `GET /api/subjects/{id}`: Gets a specific subject.
+- `POST /api/subjects`: Add a new subject.
+- `PUT /api/subjects/{id}`: Updates the information of a subject.
+- `DELETE /api/subjects/{id}`: Delete a subject.
 
-  Recurso usuarios:
-- `GET /api/users`: Obtiene la lista de usuarios.
-- `GET /api/users/{id}`: Obtiene un usuario en específico.
-- `POST /api/users`: Agrega un nuev usuario.
-- `PUT /api/users/{id}`: Actualiza la información de un usuario.
-- `DELETE /api/users/{id}`: Elimina un usuario.
-
-
-
+  User resource:
+- `GET /api/users`: Gets the list of users.
+- `GET /api/users/{id}`: Gets a specific user.
+- `POST /api/users`: Add a new user.
+- `PUT /api/users/{id}`: Updates a user's information.
+- `DELETE /api/users/{id}`: Delete a user.
