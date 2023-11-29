@@ -17,7 +17,7 @@ class StudentFactory extends Factory
         $program = Program::factory()->create();
 
         return [
-            'document' => $this->faker->unique()->word,
+            'document' => $this->faker->unique()->numberBetween(10000, 9999999999),
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'phone' => $this->faker->phoneNumber,
