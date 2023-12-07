@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfessorController;
-use App\Http\Controllers\ProfessorSubjectController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\StudentSubjectController;
+use App\Http\Controllers\StudentSubjectProfessorController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -15,15 +14,34 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Rutas para las operaciones básicas de asignaturas
-Route::get('/subjects', [SubjectController::class, 'index']);
-Route::get('/subjects/{id}', [SubjectController::class, 'show']);
+/* Crear una asignatura */
 Route::post('/subjects', [SubjectController::class, 'store']);
+/* Obtener SOLO asignaturas que tenga profesor asignado  */
+Route::get('/subjects-with-professors', [SubjectController::class, 'subjectsWithProfessors']);
+/* Obtener detalle de 1 asignatura */
+Route::get('/subjects/{id}', [SubjectController::class, 'show']);
+/* Obtener lista de asignaturas */
+Route::get('/subjects', [SubjectController::class, 'index']);
+/* Actualizar asignatura */
 Route::put('/subjects/{id}', [SubjectController::class, 'update']);
+/* Borrar asignatura */
 Route::delete('/subjects/{id}', [SubjectController::class, 'destroy']);
 
 // Rutas para la asignación de asignaturas a profesores y estudiantes
-Route::post('/professors/{professorId}/assign-subjects', [ProfessorSubjectController::class, 'assignSubjectsToProfessor']);
-Route::post('/students/{studentId}/assign-subjects', [StudentSubjectController::class, 'assignSubjectsToStudent']);
+Route::post('/professors/{professorId}/assign-subjects', [SubjectController::class, 'assignSubjectsToProfessor']);
+// Asignar asignaturas a estudiantes
+Route::post('/students/{studentId}/assign-subjects', [StudentSubjectProfessorController::class, 'assignSubjectsToStudent']);
+/* Desasignar asignatura a estudiante */
+Route::post('/students/{studentId}/unassign-subjects', [StudentSubjectProfessorController::class, 'unassignSubjectsFromStudent']);
+/* Desasignar asignatura a profesor */
+Route::delete('/professors/{professor_id}/subjects/{subject_id}/unassign', [SubjectController::class, 'unassignSubjectToProfessor']);
+
+
+/* Obtener asignaturas de un profesor */
+Route::get('/professors/{professorId}/assigned-subjects', [ProfessorController::class, 'getAssignedSubjects']);
+/* Obtener asignaturas de un estudiante */
+Route::get('/students/{studentId}/assigned-subjects', [SubjectController::class, 'getAssignedSubjects']);
+
 
 // Rutas para las otras entidades
 Route::apiResource('students', StudentController::class);

@@ -95,36 +95,32 @@ class SubjectController extends Controller
         return response()->json(['message' => 'Assignment subjects to professor successfully']);
     }
 
-    public function assignSubjectsToStudent(Request $request, $studentId)
+    public function unassignSubjectToProfessor($professorId, $subjectId)
     {
-        $student = Student::findOrFail($studentId);
-        $subjectIds = $request->input('subjects', []);
+        // Encuentra al profesor
+        $professor = Professor::find($professorId);
 
-        // Obtén las asignaturas ya asignadas al estudiante
-        $assignedSubjectIds = $student->subjects->pluck('id')->toArray();
-
-        // Filtra las asignaturas que aún no han sido asignadas al estudiante
-        $newSubjectIds = array_diff($subjectIds, $assignedSubjectIds);
-
-        // Asigna solo las nuevas asignaturas al estudiante
-        foreach ($newSubjectIds as $subjectId) {
-            // Obtén el profesor asociado a la asignatura
-            $subject = Subject::findOrFail($subjectId);
-            $professor = $subject->professors->first();
-
-            // Verifica si la asignatura tiene un profesor asignado
-            if ($professor) {
-                // Obtén el professor_id
-                $professorId = $professor->id;
-
-                // Ahora, inserta en la tabla intermedia
-                $student->subjects()->attach($subjectId, ['professor_id' => $professorId]);
-            } else {
-                // Manejar el caso en que la asignatura no tiene un profesor asignado
-                return response()->json(['error' => 'The subject does not have an assigned teacher.'], 400);
-            }
+        if (!$professor) {
+            return response()->json(['message' => 'Professor not found'], 404);
         }
 
-        return response()->json(['message' => 'Subjects assigned to the student successfully.']);
+        // Desasigna la materia del profesor
+        $professor->subjects()->detach($subjectId);
+
+        return response()->json(['message' => 'Subject unassigned successfully'], 200);
+    }
+
+    public function getAssignedSubjects($studentId)
+    {
+        $student = Student::findOrFail($studentId);
+        $assignedSubjects = $student->subjects;
+
+        return response()->json($assignedSubjects);
+    }
+
+    public function subjectsWithProfessors()
+    {
+        $subjects = Subject::whereHas('professors')->get();
+        return response()->json($subjects);
     }
 }

@@ -76,4 +76,14 @@ class ProfessorController extends Controller
             'message' => 'Professor deleted successfully'
         ]);
     }
+
+    public function getAssignedSubjects($professorId)
+    {
+        $professor = Professor::findOrFail($professorId);
+
+        // Obtener las materias asignadas al profesor
+        $assignedSubjects = $professor->subjects;
+
+        return response()->json($assignedSubjects);
+    }
 }

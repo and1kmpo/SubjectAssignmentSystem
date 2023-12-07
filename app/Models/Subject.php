@@ -17,6 +17,6 @@ class Subject extends Model
 
     public function professors()
     {
-        return $this->belongsToMany(Professor::class);
+        return $this->belongsToMany(Professor::class, 'professor_subject');
     }
 }
